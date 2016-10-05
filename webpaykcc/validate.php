@@ -181,6 +181,10 @@ class WebpayKccCallback {
                         $total_order_amount = $getOrderTotalAmount($cart);
 
                         // Needed 00 at the end
+                        $order = new Order(Order::getOrderByCartId($tbk_order_id));
+
+                        $total_order_amount = $order->total_paid_tax_incl;
+                        $total_order_amount = Tools::ps_round(floatval($total_order_amount), 0);
                         $total_order_amount_formatted = $total_order_amount . '00';
 
                         if ($total_order_amount_formatted == $tbk_total_amount) {
